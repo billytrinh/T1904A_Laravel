@@ -6,26 +6,13 @@
         <li class="control" data-filter="all">Recommended</li>
         <li class="control" data-filter=".best">Best sellers</li>
     </ul>
-    @php
-        $x=10;
-        $x++;
-    @endphp
-    @if(1==1)
-
-    @else
-
-    @endif
 
     <div class="row" id="product-filter">
         @foreach ($products as $p)
-            {{$loop->index}}
-        @if($loop->index == 5) @continue @endif
-        @continue($loop->index==5)
-        @break($loop->index >7)
         <div class="mix col-lg-3 col-md-6 best">
             <div class="product-item">
                 <figure>
-                    <img src="{{ $p['image'] }}" alt="">
+                    <img src="{{ $p->thumbnail }}" alt="">
                     <div class="pi-meta">
                         <div class="pi-m-left">
                             <img src="img/icons/eye.png" alt="">
@@ -38,8 +25,8 @@
                     </div>
                 </figure>
                 <div class="product-info">
-                    <h6>{{ $p['name']}}></h6>
-                    <p>{{ $p['price']}}</p>
+                    <h6>{{ $p->product_name}}</h6>
+                    <p>{{ $p->price}}</p>
                     <a href="#" class="site-btn btn-line">ADD TO CART</a>
                 </div>
             </div>

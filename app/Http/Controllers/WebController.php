@@ -2,66 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
 
 class WebController extends Controller
 {
     public function home(){
-        $products = [
-            [
-                'name'=> 'LONG RED SHIRT',
-                'image'=> 'img/products/1.jpg',
-                'price'=> '$39.90'
-            ],
-            [
-                'name'=> 'LONG RED SHIRT',
-                'image'=> 'img/products/2.jpg',
-                'price'=> '$39.90'
-            ],
-            [
-                'name'=> 'LONG RED SHIRT',
-                'image'=> 'img/products/3.jpg',
-                'price'=> '$39.90'
-            ],
-            [
-                'name'=> 'LONG RED SHIRT',
-                'image'=> 'img/products/4.jpg',
-                'price'=> '$39.90'
-            ],
-            [
-                'name'=> 'LONG RED SHIRT',
-                'image'=> 'img/products/4.jpg',
-                'price'=> '$39.90'
-            ],
-            [
-                'name'=> 'LONG RED SHIRT',
-                'image'=> 'img/products/6.jpg',
-                'price'=> '$39.90'
-            ],
-            [
-                'name'=> 'LONG RED SHIRT',
-                'image'=> 'img/products/7.jpg',
-                'price'=> '$39.90'
-            ],
-            [
-                'name'=> 'LONG RED SHIRT',
-                'image'=> 'img/products/8.jpg',
-                'price'=> '$39.90'
-            ],
-            [
-                'name'=> 'LONG RED SHIRT',
-                'image'=> 'img/products/9.jpg',
-                'price'=> '$39.90'
-            ],
-        ];
+        $products = Product::take(10)->orderBy('product_name','asc')->get(); // tra ve 1 collection voi moi phan tu la 1 object Product
         return view("home",['products'=>$products]);
     }
 
     public function product(){
-        return view('product_view');
+        $product = Product::find(1);// tra ve 1 object Product theo id
+        return view('product_view',['product'=>$product]);
     }
 
     public function listing(){
-        return view("listing");
+        $products = Product::where("categry_id",5)->take(10)->orderBy('product_name','asc')->get();// loc theo category
+        return view("listing",['products'=>$products]);
     }
 }
