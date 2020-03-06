@@ -11,11 +11,11 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="css/owl.carousel.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/animate.css"/>
+    <link rel="stylesheet" href="{{asset("css/bootstrap.min.css")}}"/>
+    <link rel="stylesheet" href="{{asset("css/font-awesome.min.css")}}"/>
+    <link rel="stylesheet" href="{{asset("css/owl.carousel.css")}}"/>
+    <link rel="stylesheet" href="{{asset("css/style.css")}}"/>
+    <link rel="stylesheet" href="{{asset("css/animate.css")}}"/>
 
 
     <!--[if lt IE 9]>
