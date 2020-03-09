@@ -1,9 +1,9 @@
 @extends('layout')
 @section('title',"Trang danh mục")
 @section('content')
-    <h1>Day la trang danh sach san pham</h1>
+    <h1>{{$category->category_name}}</h1>
     <div class="row">
-        @foreach ($products as $p)
+        @foreach ($category->Products()->take(10)->get() as $p)
             <div class="mix col-lg-3 col-md-6 best">
                 <div class="product-item">
                     <figure>

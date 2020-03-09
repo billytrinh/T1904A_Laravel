@@ -22,5 +22,6 @@ Route::get("/xin-chao",function (){
  */
 Route::get("/","WebController@home");
 // Route::METHOD(path_string,Controller@function_in_controller);
-Route::get("/san-pham","WebController@product");
+Route::get("/san-pham/{id}","WebController@product");
 Route::get("/danh-muc/{id}","WebController@listing");
+Route::get("/shopping/{id}","WebController@shopping");

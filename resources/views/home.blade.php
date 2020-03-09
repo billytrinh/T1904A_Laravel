@@ -16,8 +16,10 @@
                     <img src="{{ $p->thumbnail }}" alt="">
                     <div class="pi-meta">
                         <div class="pi-m-left">
-                            <img src="img/icons/eye.png" alt="">
-                            <p>quick view</p>
+                            <a href="{{url("san-pham/{$p->id}")}}">
+                                <img src="img/icons/eye.png" alt="">
+                                <p>quick view</p>
+                            </a>
                         </div>
                         <div class="pi-m-right">
                             <img src="img/icons/heart.png" alt="">
@@ -44,8 +46,10 @@
                         <img src="{{ $p->thumbnail }}" alt="">
                         <div class="pi-meta">
                             <div class="pi-m-left">
-                                <img src="img/icons/eye.png" alt="">
-                                <p>quick view</p>
+                                <a href="{{url("san-pham/{$p->id}")}}">
+                                    <img src="img/icons/eye.png" alt="">
+                                    <p>quick view</p>
+                                </a>
                             </div>
                             <div class="pi-m-right">
                                 <img src="img/icons/heart.png" alt="">
@@ -73,8 +77,10 @@
                         <img src="{{ $p->thumbnail }}" alt="">
                         <div class="pi-meta">
                             <div class="pi-m-left">
-                                <img src="img/icons/eye.png" alt="">
-                                <p>quick view</p>
+                                <a href="{{url("san-pham/{$p->id}")}}">
+                                    <img src="img/icons/eye.png" alt="">
+                                    <p>quick view</p>
+                                </a>
                             </div>
                             <div class="pi-m-right">
                                 <img src="img/icons/heart.png" alt="">
