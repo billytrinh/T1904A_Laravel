@@ -19,6 +19,9 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    const ADMIN = 1;
+    const USER = 0;
+
     /**
      * The attributes that should be hidden for arrays.
      *

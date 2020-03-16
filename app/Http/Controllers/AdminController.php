@@ -58,7 +58,7 @@ class AdminController extends Controller
             // them 1 truong status : 0: Inactive; 1: active
             // chuyen status tu 1 -> 0
         }catch (\Exception $e){
-            return redirect()->back();
+            return redirect()->back();// cho 1 error vao session, ngoai index se check va in ra
         }
         return redirect()->to("admin/category");
     }

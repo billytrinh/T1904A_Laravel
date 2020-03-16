@@ -28,3 +28,7 @@ Route::get("/","WebController@home");
 Route::get("/san-pham/{id}","WebController@product");
 Route::get("/danh-muc/{id}","WebController@listing");
 Route::get("/shopping/{id}","WebController@shopping");
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
