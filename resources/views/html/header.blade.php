@@ -9,7 +9,12 @@
             <i class="fa fa-bars"></i>
         </div>
         <div class="header-right">
-            <a href="cart.html" class="card-bag"><img src="{{asset("img/icons/bag.png")}}" alt=""><span>2</span></a>
+            @php $cart= session("cart") @endphp
+            @if(isset($cart))
+                <a href="{{url("cart")}}" class="card-bag"><img src="{{asset("img/icons/bag.png")}}" alt=""><span>{{count($cart)}}</span></a>
+            @else
+            <a href="{{url("cart")}}" class="card-bag"><img src="{{asset("img/icons/bag.png")}}" alt=""><span>0</span></a>
+            @endif
             <a href="#" class="search"><img src="{{asset("img/icons/search.png")}}" alt=""></a>
         </div>
         <!-- site menu -->
@@ -19,5 +24,6 @@
             <li><a href="{{url("/danh-muc/{$c->id}")}}">{{$c->category_name}}</a></li>
             @endforeach
         </ul>
+
     </div>
 </header>
