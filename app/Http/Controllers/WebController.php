@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WebController extends Controller
 {
@@ -90,6 +93,51 @@ class WebController extends Controller
     }
 
     public function removeProduct($id){
+
+    }
+
+    public function checkout(Request $request){
+        if(!$request->session()->has("cart")){
+            return redirect()->to("/");
+        }
+        return view("checkout");
+    }
+
+    public function placeOrder(Request $request){
+        $request->validate([
+            'customer_name'=> 'required | string',
+            'address' => 'required',
+            'payment_method'=> 'required',
+            'telephone'=> 'required',
+        ]);
+
+        $cart = $request->session()->get('cart');
+        $grand_total = 0;
+        foreach ($cart as $p){
+            $grand_total += ($p->price * $p*cart_qty);
+        }
+        $order = Order::create([
+            'user_id'=> Auth::id(),
+            'customer_name'=> $request->get("customer_name"),
+            'shipping_address'=> $request->get("address"),
+            'telephone'=> $request->get("telephone"),
+            'grand_total'=> $grand_total,
+            'payment_method'=> $request->get("payment_method"),
+            "status"=> Order::STATUS_PENDING
+        ]);
+        foreach ($cart as $p){
+            DB::table("orders_products")->insert([
+                'order_id'=> $order->id,
+                'product_id'=>$p->id,
+                'qty'=>$p->cart_qty,
+                'price'=>$p->price
+            ]);
+        }
+        session()->forget('cart');
+        return redirect()->to("checkout-success");
+    }
+
+    public function checkoutSuccess(){
 
     }
 }

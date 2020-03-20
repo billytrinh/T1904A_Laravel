@@ -39,3 +39,7 @@ Route::get('/logout', function (){
     session()->flush();
     return redirect()->to("/login");
 });
+
+Route::get("checkout",'WebController@checkout')->middleware("auth");
+Route::post("checkout",'WebController@placeOrder')->middleware("auth");
+Route::get("checkout-success",'WebController@checkoutSuccess')->middleware("auth");
