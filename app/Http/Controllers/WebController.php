@@ -114,7 +114,7 @@ class WebController extends Controller
         $cart = $request->session()->get('cart');
         $grand_total = 0;
         foreach ($cart as $p){
-            $grand_total += ($p->price * $p*cart_qty);
+            $grand_total += ($p->price * $p->cart_qty);
         }
         $order = Order::create([
             'user_id'=> Auth::id(),
