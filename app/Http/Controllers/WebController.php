@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Mail\OrderCreated;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class WebController extends Controller
 {
     public function home(){
+//        if(is_admin()){
+//            die("admin day");
+//        }
+
         //$products = Product::take(10)->orderBy('product_name','asc')->get(); // tra ve 1 collection voi moi phan tu la 1 object Product
         $newests = Product::orderBy('created_at','desc')->take(10)->get();
         $cheaps = Product::orderBy("price",'asc')->take(10)->get();
@@ -134,6 +140,7 @@ class WebController extends Controller
             ]);
         }
         session()->forget('cart');
+        Mail::to("quanghoa.trinh@gmail.com")->send(new OrderCreated());
         return redirect()->to("checkout-success");
     }
 
