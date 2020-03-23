@@ -71,7 +71,7 @@ return [
             'database' => "d9j4b6m93uus1q",//env('DB_DATABASE', 'forge'),
             'username' => "fsypbdmasiyfaa",//env('DB_USERNAME', 'forge'),
             'password' => "f05d61e335243461c83c729c80f37cece2954d0cd18678415e08eb16f88aac79",//env('DB_PASSWORD', ''),
-            'charset' => 'utf8',
+            'charset' => 'utf8mb4',
             'prefix' => '',
             'prefix_indexes' => true,
             'schema' => 'public',
