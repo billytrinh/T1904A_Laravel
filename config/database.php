@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => 'pgsql',//env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +71,7 @@ return [
             'database' => "d9j4b6m93uus1q",//env('DB_DATABASE', 'forge'),
             'username' => "fsypbdmasiyfaa",//env('DB_USERNAME', 'forge'),
             'password' => "f05d61e335243461c83c729c80f37cece2954d0cd18678415e08eb16f88aac79",//env('DB_PASSWORD', ''),
-            'charset' => 'utf8mb4',
+            'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
             'schema' => 'public',
