@@ -11,7 +11,7 @@
         <div class="card">
             <div class="card-header">Thêm danh mục</div>
             <div class="card-body">
-                <form action="{{url("admin/category/store")}}" method="post">
+                <form action="{{url("admin/category/store")}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group has-success">
                         <label for="cc-name" class="control-label mb-1">Tên danh mục</label>
@@ -21,6 +21,11 @@
                         @if($errors->has("category_name"))
                             <p style="color:red">{{$errors->first("category_name")}}</p>
                         @endif
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="cc-name" class="control-label mb-1">Ảnh đại diện</label>
+                        <input name="image" type="file" value="{{old("image")}}"
+                               class="form-control cc-name " >
                     </div>
                     <div>
                         <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">

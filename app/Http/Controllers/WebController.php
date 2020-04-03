@@ -6,26 +6,47 @@ use App\Category;
 use App\Mail\OrderCreated;
 use App\Order;
 use App\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class WebController extends Controller
 {
     public function home(){
-//        if(is_admin()){
-//            die("admin day");
-//        }
+        // luu vao cache
+        if(!Cache::has("home")){
+            $cache = [];
+            $cache['newests'] = Product::orderBy('created_at','desc')->take(10)->get();
+            $cache['cheaps'] = Product::orderBy("price",'asc')->take(10)->get();
+            $cache['exs'] = Product::orderBy('price','desc')->take(10)->get();
 
-        //$products = Product::take(10)->orderBy('product_name','asc')->get(); // tra ve 1 collection voi moi phan tu la 1 object Product
-        $newests = Product::orderBy('created_at','desc')->take(10)->get();
-        $cheaps = Product::orderBy("price",'asc')->take(10)->get();
-        $exs = Product::orderBy('price','desc')->take(10)->get();
-        return view("home",['newests'=>$newests,'cheaps'=>$cheaps,'exs'=>$exs]);
+            $newests = $cache['newests'];
+            $cheaps = $cache['cheaps'];
+            $exs = $cache['exs'];
+            $view = view("home",['newests'=>$newests,'cheaps'=>$cheaps,'exs'=>$exs])->render();
+
+            $now = Carbon::now();
+            $expireDate = $now->addHours(2);
+            Cache::put("home",$view,$expireDate);
+        }
+        return Cache::get("home");
+        // neu muon xoa 1 cache cu the
+        Cache::forget("home");
+        // neu muon xoa tat ca cache
+        Cache::flush();
+        // neu muon luu vinh vien
+        Cache::forever("key","value");
+
     }
 
     public function product($id){
+        if(Cache::has("product_".$id)){
+            ///
+        }
+        return Cache::get("product_".$id);
         $product = Product::find($id);// tra ve 1 object Product theo id
    //     $category = Category::find($product->category_id);
         $category_products = Product::where("category_id",$product->category_id)->where('id',"!=",$product->id)->take(10)->get();

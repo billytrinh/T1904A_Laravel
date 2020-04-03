@@ -21,8 +21,21 @@ class AdminController extends Controller
             "category_name"=> "required|string|unique:category"  // validation laravel
         ]);
         try {
+            $image = null;
+            $ext_allow = ["png","jpg","jpeg","gif","svg"];
+            if($request->hasFile("image")){
+                // neu nhieu file
+                $file = $request->file("image");// array neu gui len dang multifile
+                $file_name = time()."-".$file->getClientOriginalName(); // lay ten file
+                $ext = $file->getClientOriginalExtension(); // lay duoi file
+                if(in_array($ext,$ext_allow)){
+                    $file->move("upload",$file_name);
+                    $image = "upload/".$file_name;
+                }
+            }
             Category::create([
-                "category_name"=> $request->get("category_name")
+                "category_name"=> $request->get("category_name"),
+                'image'=>$image
             ]);
         }catch (\Exception $e){
             return redirect()->back();
