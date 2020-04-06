@@ -16,6 +16,15 @@
             <a href="{{url("cart")}}" class="card-bag"><img src="{{asset("img/icons/bag.png")}}" alt=""><span>0</span></a>
             @endif
             <a href="#" class="search"><img src="{{asset("img/icons/search.png")}}" alt=""></a>
+            @if(!Auth::check())
+                <a href="#" class="login btn btn-default" data-toggle="modal" data-target="#myModal">
+                    Login
+                </a>
+            @else
+                <a href="#" class="login btn btn-default" >
+                    {{Auth::user()->name}}
+                </a>
+            @endif
         </div>
         <!-- site menu -->
         <ul class="main-menu">

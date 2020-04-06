@@ -12,12 +12,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class WebController extends Controller
 {
     public function home(){
         // luu vao cache
-        if(!Cache::has("home")){
+        //if(!Cache::has("home")){
             $cache = [];
             $cache['newests'] = Product::orderBy('created_at','desc')->take(10)->get();
             $cache['cheaps'] = Product::orderBy("price",'asc')->take(10)->get();
@@ -28,11 +29,12 @@ class WebController extends Controller
             $exs = $cache['exs'];
             $view = view("home",['newests'=>$newests,'cheaps'=>$cheaps,'exs'=>$exs])->render();
 
-            $now = Carbon::now();
-            $expireDate = $now->addHours(2);
-            Cache::put("home",$view,$expireDate);
-        }
-        return Cache::get("home");
+           // $now = Carbon::now();
+           // $expireDate = $now->addHours(2);
+           // Cache::put("home",$view,$expireDate);
+       // }
+      //  return Cache::get("home");
+        return $view;
         // neu muon xoa 1 cache cu the
         Cache::forget("home");
         // neu muon xoa tat ca cache
@@ -43,10 +45,10 @@ class WebController extends Controller
     }
 
     public function product($id){
-        if(Cache::has("product_".$id)){
-            ///
-        }
-        return Cache::get("product_".$id);
+//        if(Cache::has("product_".$id)){
+//            ///
+//        }
+//        return Cache::get("product_".$id);
         $product = Product::find($id);// tra ve 1 object Product theo id
    //     $category = Category::find($product->category_id);
         $category_products = Product::where("category_id",$product->category_id)->where('id',"!=",$product->id)->take(10)->get();
@@ -169,4 +171,26 @@ class WebController extends Controller
     public function checkoutSuccess(){
 
     }
+
+    public function postLogin(Request $request){
+//        $request->validate([
+//            "email" => 'required|email',
+//            "password"=> "required|min:8"
+//        ]);
+        $validator = Validator::make($request->all(),[
+            "email" => 'required|email',
+            "password"=> "required|min:8"
+        ]);
+
+        if($validator->fails()){
+            return response()->json(["status"=>false,"message"=>$validator->errors()->first()]);
+        }
+        $email = $request->get("email");
+        $pass = $request->get("password");
+        if(Auth::attempt(['email'=>$email,'password'=>$pass])){
+            return response()->json(['status'=>true,'message'=>"Login successfully!"]);
+        }
+        return response()->json(['status'=>false,'message'=>"login failure"]);
+    }
+
 }

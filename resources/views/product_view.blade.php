@@ -75,7 +75,13 @@
                             </div>
                         </div>
                         <p>{{$product->quantity}}</p>
-                        <a href="{{url("shopping/{$product->id}")}}" class="site-btn btn-line">ADD TO CART</a>
+                        @if(!Auth::check())
+                            <a href="#" class="site-btn btn-line" data-toggle="modal" data-target="#myModal">
+                                ADD TO CART
+                            </a>
+                        @else
+                            <a href="{{url("shopping/{$product->id}")}}" class="site-btn btn-line">ADD TO CART</a>
+                        @endif
                     </div>
                 </div>
             </div>
