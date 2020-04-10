@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
-
+use Pusher\Pusher;
 class AdminController extends Controller
 {
     public function category(){
@@ -37,6 +37,7 @@ class AdminController extends Controller
                 "category_name"=> $request->get("category_name"),
                 'image'=>$image
             ]);
+            notify("t1904a","create_category",["message"=>"tao moi danh muc: ".$request->get("category_name")]);
         }catch (\Exception $e){
             return redirect()->back();
         }
